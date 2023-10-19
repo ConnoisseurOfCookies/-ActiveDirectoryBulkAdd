@@ -13,7 +13,7 @@
 
 <h2 id="instructions">Instructions</h2>
 <p>Follow the format set up in the CSV or Json files, it is quite self-explanatory. Be careful editing .csv files with Excel, it tends to screw up the formatting or try to save it in a different format. Personally I'd use VSCode, for the syntax highlighting, or just stick with the JSON.</p>
-<p>Make sure that the organization structure, OU's and groups, have been defined and created prior to running the script</p>
+<p><b>Make sure that the organization structure, OU's and groups, have been defined and created prior to running the script</b></p>
 <ol>
     <li><p>Place the script and the csv/json file in the same folder</p></li>
     <li><p>Edit the relevant details. Note that OU follows the format "OU=*OU*, DC=*Domain Name pt1*, DC=*Domain Name pt2*"</p></li>
