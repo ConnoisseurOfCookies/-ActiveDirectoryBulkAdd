@@ -13,6 +13,7 @@
 
 <h2 id="instructions">Instructions</h2>
 <p>Follow the format set up in the CSV or Json files, it is quite self-explanatory. Be careful editing .csv files with Excel, it tends to screw up the formatting or try to save it in a different format. Personally I'd use VSCode, for the syntax highlighting, or just stick with the JSON.</p>
+<p>Make sure that the organization structure, OU's and groups, have been defined and created prior to running the script</p>
 <ol>
     <li><p>Place the script and the csv/json file in the same folder</p></li>
     <li><p>Edit the relevant details. Note that OU follows the format "OU=*OU*, DC=*Domain Name pt1*, DC=*Domain Name pt2*"</p></li>
@@ -34,7 +35,15 @@
     <li>No error handling code</li>
     <li>No checking for edge cases</li>
     <li>No handling of duplicate users</li>
+    <li>OU's and Groups need to be created prior to running the script</li>
 </ul>
+
+<h2>Todo</h2>
+    <ul>
+        <li>Provide handling mechanisms for when OU's don't exist</li>
+        <li>Prompt the user on whethere or not they would like for new OU's to be created</li>
+        <li>Improve prompts</li>
+    </ul>
 
 <h2 id="references">Reference</h2>
 Implemented as per video from <a href="https://www.youtube.com/watch?v=9WAcQE-Q9xo">Server Academy Youtube Channel</a>
