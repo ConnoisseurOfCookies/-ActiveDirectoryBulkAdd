@@ -39,7 +39,7 @@ foreach ($user in $users){
 # Add new OU's to the domain
 foreach ($OU in $NewOUList){
     echo "`nThe OU $OU does not exist, do you want to create it?"
-    New-ADOrganizationalUnit -Name $ou -ProtectedFromAccidentalDeletion $false -Confirm
+    New-ADOrganizationalUnit -Name $ou  -Confirm
 }
 
 # Add new Groups to the domain
