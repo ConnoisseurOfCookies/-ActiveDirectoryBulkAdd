@@ -45,6 +45,8 @@
         <li>Improve prompts. Could do with some more work</li>
         <li>Create utility for Home and Group folder creation with prerequisite permissions</li>
         <li>Create script that serialises, pulls and backs up AD details and configurations, so it can be rebuilt from scratch</li>
+        <li>Break script into smaller modules, separated by folders and files</li>
+        <li>Push JSON file down into a 'samples' directory</li>
     </ul>
 
 <h2 id="references">Reference</h2>
