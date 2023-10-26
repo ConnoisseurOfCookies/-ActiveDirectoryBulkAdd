@@ -12,8 +12,8 @@
 <p>The purpose of this script is to add bulk users to Windows Active Directory by using either a CSV or a JSON file</p>
 
 <h2 id="instructions">Instructions</h2>
-<p>Follow the format set up in the CSV or Json files, it is quite self-explanatory. Be careful editing .csv files with Excel, it tends to screw up the formatting or try to save it in a different format. Personally I'd use VSCode, for the syntax highlighting, or just stick with the JSON.</p>
-<p><b>Make sure that the organization structure, OU's and groups, have been defined and created prior to running the script</b></p>
+<p>Follow the format set up in the <s>CSV</s> or Json files, it is quite self-explanatory. Be careful editing .csv files with Excel, it tends to screw up the formatting or try to save it in a different format. Personally I'd use VSCode, for the syntax highlighting, or just stick with the JSON.</p>
+<p><b><s>Make sure that the organization structure, OU's and groups, have been defined and created prior to running the script</s></b> The script now scrapes the file for OU's and Groups and checks them against groups that already exist. If the user is a part of a group that doesn't exist the script prompts whether or not to create a new OU.</p>
 <ol>
     <li><p>Place the script and the csv/json file in the same folder</p></li>
     <li><p>Edit the relevant details. Note the formatting for the "OU=ouUnit" and "DC=Domain,DC=DomainSuffix"</p></li>
@@ -29,8 +29,7 @@
     .\addAdUsers.ps1  
 ```
 
-<h2 id="issues">Issues<h2>
-
+<h2 id="issues">Issues</h2>
 <ul>
     <li>Need to create a basic modification to handle different input formats (csv, xml, sql, mongoDB etc.)</li>
     <li><s>No</s> Basic error handling code</li>
