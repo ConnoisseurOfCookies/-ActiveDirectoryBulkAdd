@@ -43,6 +43,8 @@
         <li><s>Provide handling mechanisms for when OU's don't exist</s>Done!</li>
         <li><s>Prompt the user on whethere or not they would like for new OU's to be created</s></li>
         <li>Improve prompts. Could do with some more work</li>
+        <li>Create utility for Home and Group folder creation with prerequisite permissions</li>
+        <li>Create script that serialises, pulls and backs up AD details and configurations, so it can be rebuilt from scratch</li>
     </ul>
 
 <h2 id="references">Reference</h2>
