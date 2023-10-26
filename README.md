@@ -50,7 +50,7 @@
         <li>Configure a "Configure Password prompt" at the start, prompt for either "Generic for All" password or "On individual basis"</li>
     </ul>
 
-<h2>Notes</h2>
+<h2>Notes to Self</h2>
 Password can be pulled from secure string by using 
 
 ```PowerShell
