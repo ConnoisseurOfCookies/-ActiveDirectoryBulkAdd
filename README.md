@@ -47,7 +47,16 @@
         <li>Create script that serialises, pulls and backs up AD details and configurations, so it can be rebuilt from scratch</li>
         <li>Break script into smaller modules, separated by folders and files</li>
         <li>Push JSON file down into a 'samples' directory</li>
+        <li>Configure a "Configure Password prompt" at the start, prompt for either "Generic for All" password or "On individual basis"</li>
     </ul>
+
+<h2>Notes</h2>
+Password can be pulled from secure string by using 
+
+```PowerShell
+    $plainText = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
+    # This is important when user is prompted to verify password input for comparisons sake
+```
 
 <h2 id="references">Reference</h2>
 Initial implementation as per video from <a href="https://www.youtube.com/watch?v=9WAcQE-Q9xo">Server Academy Youtube Channel</a>
