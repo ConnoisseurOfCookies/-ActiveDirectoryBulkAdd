@@ -23,16 +23,10 @@ foreach ($user in $users){
     }
 
     # If Group does not exist, add to list of Groups to add, for Grp1, Grp2 and Grp3
-    if(!$ADGrList.Name.Contains($user.Grp1) -and !$NewUserGroupList.Contains($user.Grp1) -and $user.Grp1 -ne ""){
-        $NewUserGroupList += $user.Grp1
-    }
-
-    if(!$ADGrList.Name.Contains($user.Grp2) -and !$NewUserGroupList.Contains($user.Grp2)  -and $user.Grp2 -ne ""){
-        $NewUserGroupList += $user.Grp2
-    }
-
-    if(!$ADGrList.Name.Contains($user.Grp3) -and !$NewUserGroupList.Contains($user.Grp3)  -and $user.Grp3 -ne ""){
-        $NewUserGroupList += ($user.Grp3)
+    foreach ($group in $users.Groups) {
+        if(!$ADGrList.Name.Contains($group) -and !$NewUserGroupList.Contains($group) -and $group -ne ""){
+            $NewUserGroupList += $group
+        }
     }
 }
 
@@ -43,9 +37,9 @@ foreach ($OU in $NewOUList){
 }
 
 # Add new Groups to the domain
-foreach ($Group in $NewUserGroupList){
+foreach ($NewGroup in $NewUserGroupList){
     
-    $willCreateGroup = Read-Host "`nThe Group $Group does not exist, do you want to create it? (Y) (N)"
+    $willCreateGroup = Read-Host "`nThe Group $NewGroup does not exist, do you want to create it? (Y) (N)"
 
     # If not Y, quit
     if($willCreateGroup -ne 'Y'.Trim() -or $willCreateGroup -ne 'y'.Trim()) {
@@ -53,7 +47,7 @@ foreach ($Group in $NewUserGroupList){
         break
     }
     
-    Write-Output "`nWhich OU will $Group belong to?`n"
+    Write-Output "`nWhich OU will $NewGroup belong to?`n"
     
     # Update ADOuList
     $ADOuList = Get-ADOrganizationalUnit -Filter "*" |  Select-Object Name
@@ -77,7 +71,8 @@ foreach ($Group in $NewUserGroupList){
 
     $ouGroup = $ADOuList[$userInput].Name
     $DCPath = $users[0].DC
-    New-ADGroup -Name $Group -Path "OU=$ouGroup,$DCPath" -GroupScope DomainLocal
+    
+    New-ADGroup -Name $NewGroup -Path "OU=$ouGroup,$DCPath" -GroupScope DomainLocal
 }
 
 
@@ -133,9 +128,7 @@ ForEach ($user in $users) {
     $email = $user.EmailAddress
     $ouFullAddress = "OU=" + $user.Ou + "," + $user.DC 
     $ou = $user.Ou
-    $grp1 = $user.Grp1
-    $grp2 = $user.Grp2 
-    $grp3 = $user.Grp3
+    $groups = $user.Groups
     $Role = $user.Role
 
     
@@ -169,63 +162,25 @@ ForEach ($user in $users) {
     
    
     #Add user to Groups
-    if($grp1 -ne ""){
+    ForEach ($group in $groups) {
+        if($group -ne ""){
         
-        $memberCount = Get-ADGroup $grp1 -Properties "Members" | Select-Object "Members"
-        $memberCount = $memberCount.Members.Count
-        if($memberCount -eq 0){
-            Add-ADGroupMember -Identity $grp1 -Members $username
-            Write-Output  "$firstname $lastname added to $grp1"
-        }
-
-        $members = Get-ADGroupMember $grp1 | Select-Object samaccountname
-        if(!$members.samaccountname.Contains($username)){
-            Add-ADGroupMember -Identity $grp1 -Members $username
-            Write-Output  "$firstname $lastname added to $grp1"
-        }else {
-            Write-Output "$username is already a member of $grp1" 
-        }
-    }
-
-
-    if($grp2 -ne ""){
-        
-        $memberCount = Get-ADGroup $grp2 -Properties "Members" | Select-Object "Members"
-        $memberCount = $memberCount.Members.Count
-        if($memberCount -eq 0){
-            Add-ADGroupMember -Identity $grp2 -Members $username
-            Write-Output  "$firstname $lastname added to $grp2"
-        }
-
-        $members = Get-ADGroupMember $grp2 | Select-Object samaccountname
-        if(!$members.samaccountname.Contains($username)){
-            Add-ADGroupMember -Identity $grp2 -Members $username
-            Write-Output  "$firstname $lastname added to $grp2"
-        }else {
-            Write-Output "$username is already a member of $grp2" 
-        }
-
+            $memberCount = Get-ADGroup $group -Properties "Members" | Select-Object "Members"
+            $memberCount = $memberCount.Members.Count
+            if($memberCount -eq 0){
+                Add-ADGroupMember -Identity $group -Members $username
+                Write-Output  "$firstname $lastname added to $group"
+            }
     
-    }
-
-    if($grp3 -ne ""){
-        
-        $memberCount = Get-ADGroup $grp3 -Properties "Members" | Select-Object "Members"
-        $memberCount = $memberCount.Members.Count
-        if($memberCount -eq 0){
-            Add-ADGroupMember -Identity $grp3 -Members $username
-            Write-Output  "$firstname $lastname added to $grp3"
+            $members = Get-ADGroupMember $group | Select-Object samaccountname
+            if(!$members.samaccountname.Contains($username)){
+                Add-ADGroupMember -Identity $group -Members $username
+                Write-Output  "$firstname $lastname added to $group"
+            }else {
+                Write-Output "$username is already a member of $group" 
+            }
         }
 
-        $members = Get-ADGroupMember $grp3 | Select-Object samaccountname
-        if(!$members.samaccountname.Contains($username)){
-            Add-ADGroupMember -Identity $grp3 -Members $username
-            Write-Output  "$firstname $lastname added to $grp3"
-        }else {
-            Write-Output "$username is already a member of $grp3" 
-        }
-
-    
     }
 
   }
