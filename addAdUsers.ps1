@@ -32,14 +32,14 @@ foreach ($user in $users){
 
 # Add new OU's to the domain
 foreach ($OU in $NewOUList){
-    Write-Output "`nThe OU $OU does not exist, do you want to create it?"
+    Write-Output "`nThe OU $OU does not exist, do you want to create it?`n"
     New-ADOrganizationalUnit -Name $ou  -Confirm
 }
 
 # Add new Groups to the domain
 foreach ($NewGroup in $NewUserGroupList){
     
-    $willCreateGroup = Read-Host "`nThe Group $NewGroup does not exist, do you want to create it? (Y) (N)"
+    $willCreateGroup = Read-Host "`nThe Group $NewGroup does not exist, do you want to create it? (Y) (N)`n"
 
     # If not Y, quit
     if($willCreateGroup -ne 'Y'.Trim() -or $willCreateGroup -ne 'y'.Trim()) {
@@ -89,7 +89,7 @@ $password
 # Otherwise, prompt again
 do {
     # The prompt
-    $UseDefaultPassword = Read-Host -Prompt "Do you want to use a default password for each user or assign a unique password for each individual user?`n (1) Use Default Password`n (2) Assign Individually`n"
+    $UseDefaultPassword = Read-Host -Prompt "`nDo you want to use a default password for each user or assign a unique password for each individual user?`n (1) Use Default Password`n (2) Assign Individually`n"
 
 
     switch ($UseDefaultPassword) {
@@ -135,7 +135,7 @@ ForEach ($user in $users) {
     
 
     if($ADUserList.samaccountname.Contains($username)){
-        Write-Output "User with accountname $username is already added to the domain. Check user details."
+        Write-Warning "`nUser with accountname $username is already added to the domain.`n"
     }else {
         # Check whether or not user chooses default passwords
         if (!$UsingDefaultPwd) {
@@ -147,7 +147,7 @@ ForEach ($user in $users) {
                 $password2 = Read-Host -AsSecureString -Prompt "Type the password again"
                 $passwordsMatch = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)) -eq [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password2))
                 if(!$passwordsMatch){
-                    Write-Warning "Passwords do not match, please try again:"
+                    Write-Warning "`nPasswords do not match, please try again:`n"
                 }
             } while (!$passwordsMatch)
         }
@@ -169,7 +169,7 @@ ForEach ($user in $users) {
             $memberCount = $memberCount.Members.Count
             if($memberCount -eq 0){
                 Add-ADGroupMember -Identity $group -Members $username
-                Write-Output  "$firstname $lastname added to $group"
+                Write-Warning  "$firstname $lastname added to $group"
             }
     
             $members = Get-ADGroupMember $group | Select-Object samaccountname
@@ -177,7 +177,7 @@ ForEach ($user in $users) {
                 Add-ADGroupMember -Identity $group -Members $username
                 Write-Output  "$firstname $lastname added to $group"
             }else {
-                Write-Output "$username is already a member of $group" 
+                Write-Warning "$username is already a member of $group" 
             }
         }
 
