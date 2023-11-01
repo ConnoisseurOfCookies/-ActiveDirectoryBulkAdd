@@ -10,8 +10,7 @@
         "Grp2":  "grManagement",
         "Grp3":  "grUpperManagement",
         "Department":  "Office",
-        "Role":  "CEO",
-        "Test": ["One", "Two", "Cunt"]
+        "Role":  "CEO"    
     },
     {
         "FirstName":  "Chief",
