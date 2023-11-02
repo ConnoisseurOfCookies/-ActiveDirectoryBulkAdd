@@ -2,7 +2,7 @@
 Import-Module ActiveDirectory
 
 # JSON FilePath, same as script path
-$users = Get-Content  .\samples\addAdUsers.json | ConvertFrom-Json
+$users = Get-Content  .\samples\ADUserConfig.json | ConvertFrom-Json
 
 #Loop through and find all OU's and Groups that don't exist
 
